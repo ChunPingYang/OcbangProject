@@ -5,6 +5,7 @@ import { Table, Modal as Antmodal} from "antd";
 import "antd/dist/antd.css";
 import Modal from "react-modal";
 import { Editor } from "@tinymce/tinymce-react";
+import styled from 'styled-components';
 
 function App() {
 
@@ -22,11 +23,17 @@ function App() {
     content: {
       width: "60%",
       height: "60%",
-      top: "15",
-      left: "5",
+      bottom:"15",
+      right:"5",
       position: "absolute",
     },
   };
+
+  const Paging = styled(Table)`
+    .ant-table-pagination-right{
+      justify-content: flex-start;
+    }
+  `
 
   const [data, setData] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -92,7 +99,7 @@ function App() {
     const jobs = Object.values(jobJson);
 
     const matchList = [];
-    talents.map(
+    talents.forEach(
       (
         {
           Talent_Name,
@@ -152,14 +159,14 @@ function App() {
     const jobs = Object.entries(preview).filter(([key,val]) => { return key.includes('job');});
     
     const jobstag = [];
-    jobs.map(([key,val],index) => {
+    jobs.forEach(([key,val],index) => {
       console.log(key);
       console.log(val);
 
       const tags = 
             <p>{index+1}. {val['jobname']} {val['company']} {val['location']}
             <br/>
-            <a href={val['url'] } target="_blank">Link</a>
+            <a href={val['url'] } target="_blank" rel="noreferrer">Link</a>
             </p>
 
       jobstag.push(tags);
@@ -263,7 +270,7 @@ function App() {
           </>
         )}
       </Modal>
-      <Table dataSource={data} pagination={{ pageSize: 5}} scroll={{ y: 350 }}>
+      <Paging dataSource={data} pagination={{ pageSize: 5}} scroll={{ y: 350, x: 1200}}>
         <Table.Column width="9%" title="Talent_Name" dataIndex="name" />
         <Table.Column width="7%" title="Email" dataIndex="email" />
         <Table.Column width="7%" title="Location" dataIndex="location" />
@@ -279,7 +286,7 @@ function App() {
               console.log(text);
               if (typeof text !== "undefined") {
                 return (
-                  <a href={text['url']} target="_blank">
+                  <a href={text['url']} target="_blank" rel="noreferrer">
                     J{index + 1}URL
                   </a>
                 );
@@ -293,7 +300,7 @@ function App() {
           title="LinkedInURL"
           dataIndex="linkedinurl"
           render={(text) => (
-            <a href={text} target="_blank">
+            <a href={text} target="_blank" rel="noreferrer">
               {text}
             </a>
           )}
@@ -302,11 +309,12 @@ function App() {
           width="7%"
           title="Preview"
           key="preview"
+          fixed='right'
           render={(record) => (
-            <button onClick={() => handlePreview(record)}>PRVW(Popup)</button>
+            <button style={{width:'90%'}} onClick={() => handlePreview(record)}>PRVW</button>
           )}
         />
-      </Table>
+      </Paging>
       <button>Send</button>
     </>
   );
