@@ -44,7 +44,7 @@ function App() {
   const handleJD = () => {
     fetch(process.env.PUBLIC_URL + "/assets/ANSTest_Datasets.xlsx")
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         return response.arrayBuffer();
       })
       .then((ab) => {
@@ -54,10 +54,10 @@ function App() {
         });
 
         var second_sheet_name = workbook.SheetNames[1];
-        console.log(second_sheet_name);
+        //console.log(second_sheet_name);
         var worksheet = workbook.Sheets[second_sheet_name];
         var _JsonData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        console.log(_JsonData);
+        //console.log(_JsonData);
 
         localStorage.set("job", _JsonData);
       });
@@ -66,7 +66,7 @@ function App() {
   const handleTalent = () => {
     fetch(process.env.PUBLIC_URL + "/assets/ANSTest_Datasets.xlsx")
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         return response.arrayBuffer();
       })
       .then((ab) => {
@@ -76,10 +76,10 @@ function App() {
         });
 
         var first_sheet_name = workbook.SheetNames[0];
-        console.log(first_sheet_name);
+        //console.log(first_sheet_name);
         var worksheet = workbook.Sheets[first_sheet_name];
         var _JsonData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        console.log(_JsonData);
+        //console.log(_JsonData);
 
         localStorage.set("talent", _JsonData);
       });
@@ -135,7 +135,6 @@ function App() {
         };
 
         const jsonJob = {};
-        //const jobName = {};
         for (let i = 1; i <= matchJobs.length; i++) {
           jsonJob["job" + i] = 
                   {'url' : matchJobs[i - 1]["JobURL"], 
@@ -149,19 +148,19 @@ function App() {
       }
     );
 
-    console.log(matchList);
+    //console.log(matchList);
     setData(matchList);
   };
 
   const handlePreview = (preview) => {
-    console.log(preview);
+    //console.log(preview);
     
     const jobs = Object.entries(preview).filter(([key,val]) => { return key.includes('job');});
     
     const jobstag = [];
     jobs.forEach(([key,val],index) => {
-      console.log(key);
-      console.log(val);
+      //console.log(key);
+      //console.log(val);
 
       const tags = 
             <p>{index+1}. {val['jobname']} {val['company']} {val['location']}
@@ -283,7 +282,6 @@ function App() {
             title={title}
             dataIndex={dataIndex}
             render={function (text) {
-              console.log(text);
               if (typeof text !== "undefined") {
                 return (
                   <a href={text['url']} target="_blank" rel="noreferrer">
