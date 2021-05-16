@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Modal from "react-modal";
+import localStorage from "local-storage";
+
+Modal.setAppElement(document.getElementById('root'));
+localStorage.clear();
 
 ReactDOM.render(
   <React.StrictMode>
