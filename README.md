@@ -2,7 +2,7 @@
 
 ### Install flow
 
-npm install
+npm install\
 npm install --save @tinymce/tinymce-react\
 npm install --save react-modal\
 npm install antd\
